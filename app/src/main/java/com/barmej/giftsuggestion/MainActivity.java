@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -19,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
      * Constant used as bundle key
      */
     private static final String BUNDLE_CURRENT_INDEX = "BUNDLE_CURRENT_INDEX";
+
+    /**
+     * Instance of Random class used to generate random index
+     */
+    private Random mRandom;
 
     /**
      * ImageView to display images
@@ -42,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Create new Random object
+        mRandom = new Random();
         // Get imageView from view hierarchy
         mGiftImageView = findViewById(R.id.image_gift);
         Log.i(TAG, "Created");
@@ -112,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
     public void display(View view) {
         // If counter does not exceed the last index in the array
         if (mCurrentIndex < 9) {
-            // Show the image at the counter index
-            mCurrentIndex++;
+            // Generate random index
+            mCurrentIndex = mRandom.nextInt(10);
             showImage();
         } else {
             // Reset the counter
@@ -122,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Show the image at the counter index
+     * Show the image at the current index
      */
     private void showImage() {
         Drawable giftDrawable = ContextCompat.getDrawable(this, mGiftsPictures[mCurrentIndex]);
