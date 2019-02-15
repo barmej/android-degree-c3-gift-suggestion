@@ -16,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     /**
+     * Constant used as bundle key
+     */
+    private static final String BUNDLE_CURRENT_INDEX = "BUNDLE_CURRENT_INDEX";
+
+    /**
      * ImageView to display images
      */
     private ImageView mGiftImageView;
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Variable used as index to move through images array
      */
-    private int mCurrentIndex = 0;
+    private int mCurrentIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,26 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Destroyed");
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_CURRENT_INDEX)) {
+            mCurrentIndex = savedInstanceState.getInt(BUNDLE_CURRENT_INDEX);
+            if (mCurrentIndex != -1) {
+                showImage();
+            }
+        }
+        Log.i(TAG, "onRestoreInstanceState");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(BUNDLE_CURRENT_INDEX, mCurrentIndex);
+        Log.i(TAG, "onSaveInstanceState");
+    }
+
+
     /**
      * Called by android system when the button clicked
      * It's specified as click handler using XML onClick attribute
@@ -86,14 +111,22 @@ public class MainActivity extends AppCompatActivity {
      */
     public void display(View view) {
         // If counter does not exceed the last index in the array
-        if (mCurrentIndex < 10) {
+        if (mCurrentIndex < 9) {
             // Show the image at the counter index
-            Drawable flowerDrawable = ContextCompat.getDrawable(this, mGiftsPictures[mCurrentIndex++]);
-            mGiftImageView.setImageDrawable(flowerDrawable);
+            mCurrentIndex++;
+            showImage();
         } else {
             // Reset the counter
-            mCurrentIndex = 0;
+            mCurrentIndex = -1;
         }
+    }
+
+    /**
+     * Show the image at the counter index
+     */
+    private void showImage() {
+        Drawable giftDrawable = ContextCompat.getDrawable(this, mGiftsPictures[mCurrentIndex]);
+        mGiftImageView.setImageDrawable(giftDrawable);
     }
 
 }
