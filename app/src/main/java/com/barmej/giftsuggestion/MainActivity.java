@@ -2,11 +2,13 @@ package com.barmej.giftsuggestion;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.Random;
 
@@ -93,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_CURRENT_INDEX)) {
+        if (savedInstanceState.containsKey(BUNDLE_CURRENT_INDEX)) {
             mCurrentIndex = savedInstanceState.getInt(BUNDLE_CURRENT_INDEX);
             if (mCurrentIndex != -1) {
                 showImage();
