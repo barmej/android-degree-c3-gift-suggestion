@@ -13,7 +13,6 @@ To use this repository, fork/clone it, or download a zip using the green "Clone 
 All contributions are welcome and gratefully accepted.
 
 # License
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
 A copy of the license is also available in the [license file](LICENSE).
